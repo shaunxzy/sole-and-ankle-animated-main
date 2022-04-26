@@ -8,6 +8,7 @@ import { QUERIES, WEIGHTS } from '../../constants';
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
 import VisuallyHidden from '../VisuallyHidden';
+import {keyframes} from "styled-components";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
@@ -36,6 +37,33 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
   );
 };
 
+const ModalFadesIn = keyframes`
+  from {
+    opacity: 25%;
+  }
+  to {
+    opacity: 75%;
+  }
+`
+
+const MenuPopIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+`
+
+const ContentFadesIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
+`
+
 const Overlay = styled(DialogOverlay)`
   position: fixed;
   top: 0;
@@ -45,6 +73,8 @@ const Overlay = styled(DialogOverlay)`
   background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+  
+  animation: ${ModalFadesIn} 200ms;
 `;
 
 const Content = styled(DialogContent)`
@@ -54,6 +84,9 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+  
+  animation: ${MenuPopIn} 200ms backwards;
+  animation-delay: 50ms;
 `;
 
 const CloseButton = styled(UnstyledButton)`
@@ -61,12 +94,18 @@ const CloseButton = styled(UnstyledButton)`
   top: 10px;
   right: 0;
   padding: 16px;
+
+  animation: ${ContentFadesIn} 250ms backwards;
+  animation-delay: 200ms;
 `;
 
 const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  
+  animation: ${ContentFadesIn} 250ms backwards;
+  animation-delay: 200ms;
 `;
 
 const NavLink = styled.a`
@@ -79,10 +118,16 @@ const NavLink = styled.a`
   &:first-of-type {
     color: var(--color-secondary);
   }
+
+  animation: ${ContentFadesIn} 250ms backwards;
+  animation-delay: 200ms;
 `;
 
 const Filler = styled.div`
   flex: 1;
+
+  animation: ${ContentFadesIn} 250ms backwards;
+  animation-delay: 200ms;
 `;
 const Footer = styled.footer`
   flex: 1;
@@ -90,12 +135,18 @@ const Footer = styled.footer`
   flex-direction: column;
   gap: 14px;
   justify-content: flex-end;
+
+  animation: ${ContentFadesIn} 250ms backwards;
+  animation-delay: 200ms;
 `;
 
 const SubLink = styled.a`
   color: var(--color-gray-700);
   font-size: 0.875rem;
   text-decoration: none;
+
+  animation: ${ContentFadesIn} 250ms backwards;
+  animation-delay: 200ms;
 `;
 
 export default MobileMenu;

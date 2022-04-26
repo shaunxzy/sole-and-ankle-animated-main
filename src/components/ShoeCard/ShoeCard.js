@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
+import {keyframes} from "styled-components";
 
 const ShoeCard = ({
   slug,
@@ -68,6 +69,24 @@ const ShoeCard = ({
   );
 };
 
+const shake = keyframes`
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+`
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
@@ -77,11 +96,21 @@ const Wrapper = styled.article``;
 
 const ImageWrapper = styled.div`
   position: relative;
+  border-radius: 16px 16px 4px 4px;
+  overflow: hidden;
+  
 `;
 
 const Image = styled.img`
   width: 100%;
+  transition: transform 300ms;
   border-radius: 16px 16px 4px 4px;
+  transform-origin: 50% 65%;
+  
+  &:hover{
+    transform: scale(1.1);
+    transition: transform 100ms;
+  }
 `;
 
 const Row = styled.div`
@@ -121,6 +150,10 @@ const Flag = styled.div`
   font-weight: ${WEIGHTS.bold};
   color: var(--color-white);
   border-radius: 2px;
+  
+  &:hover {
+    animation: ${shake} 200ms ease-in-out;
+  }
 `;
 
 const SaleFlag = styled(Flag)`

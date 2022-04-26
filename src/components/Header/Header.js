@@ -8,6 +8,7 @@ import UnstyledButton from '../UnstyledButton';
 import SuperHeader from '../SuperHeader';
 import MobileMenu from '../MobileMenu';
 import VisuallyHidden from '../VisuallyHidden';
+import {keyframes} from "styled-components";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -20,12 +21,42 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavContainer>
+            <FlowOutNav>
+              <NavLink href="/sale">Sale</NavLink>
+              <NavLink style={{fontWeight: WEIGHTS.bold}} href="/sale">Sale</NavLink>
+            </FlowOutNav>
+          </NavContainer>
+          <NavContainer>
+            <FlowOutNav>
+              <NavLink href="/new">New&nbsp;Releases</NavLink>
+              <NavLink style={{fontWeight: WEIGHTS.bold}} href="/new">New&nbsp;Releases</NavLink>
+            </FlowOutNav>
+          </NavContainer>
+          <NavContainer>
+            <FlowOutNav>
+              <NavLink href="/men">Men</NavLink>
+              <NavLink style={{fontWeight: WEIGHTS.bold}} href="/men">Men</NavLink>
+            </FlowOutNav>
+          </NavContainer>
+          <NavContainer>
+            <FlowOutNav>
+              <NavLink href="/women">Women</NavLink>
+              <NavLink style={{fontWeight: WEIGHTS.bold}} href="/women">Women</NavLink>
+            </FlowOutNav>
+          </NavContainer>
+          <NavContainer>
+            <FlowOutNav>
+              <NavLink href="/kids">Kids</NavLink>
+              <NavLink style={{fontWeight: WEIGHTS.bold}} href="/kids">Kids</NavLink>
+            </FlowOutNav>
+          </NavContainer>
+          <NavContainer>
+            <FlowOutNav>
+              <NavLink href="/collections">Collections</NavLink>
+              <NavLink style={{fontWeight: WEIGHTS.bold}} href="/collections">Collections</NavLink>
+            </FlowOutNav>
+          </NavContainer>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -52,6 +83,23 @@ const Header = () => {
   );
 };
 
+const TransformUp = keyframes`
+  from {
+    transform: translateY(0) scale(1);
+  } to {
+    transform: translateY(-100%) scale(100%, 0);
+    }
+`
+
+const TransformDown = keyframes`
+  from {
+    transform: translateY(0) scale(100%, 0);
+  } 
+  to {
+      transform: translateY(100%) scale(1);
+    }
+`
+
 const MainHeader = styled.div`
   display: flex;
   align-items: baseline;
@@ -70,6 +118,12 @@ const MainHeader = styled.div`
     padding-right: 16px;
   }
 `;
+
+
+
+
+
+
 
 const DesktopNav = styled.nav`
   display: flex;
@@ -118,12 +172,35 @@ const NavLink = styled.a`
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--color-gray-900);
+  color: inherit;
   font-weight: ${WEIGHTS.medium};
+`;
+
+
+const FlowOutNav = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  transform: translateY(0);
+  transition: transform 280ms ease-in-out;
+`
+
+const NavContainer = styled.div`
+  overflow: hidden;
+  height: 1.5rem;
+  color: var(--color-gray-900);
+  
+  &:hover ${FlowOutNav}{
+    transform: translateY(-50%);
+    transition: transform 150ms ease-in-out;
+  }
 
   &:first-of-type {
     color: var(--color-secondary);
   }
-`;
+  
+  
+  
+`
 
 export default Header;
